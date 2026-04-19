@@ -69,7 +69,8 @@ class getitemprice:
                 self.bazaar_price[item] = lowest_price["pricePerUnit"]
             else:
                 self.bazaar_price[item] = 0
-
+                
+        print("進捗:Bazaarの価格取得が終了")
         return self.bazaar_price
     
 
