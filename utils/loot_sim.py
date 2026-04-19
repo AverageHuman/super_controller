@@ -527,6 +527,6 @@ class f7:
         print(total_value)
         print(f"Profit:{profit} coins")
 
-
-f = f7()
-f.calculate_chest_profit()
+if __name__ == "__main__":
+    f = f7()
+    f.calculate_chest_profit()
