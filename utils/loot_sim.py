@@ -504,28 +504,37 @@ class f7:
 
 # ========== Calculate chest value logic ==========
     def calculate_chest_profit(self):
-        rolled_loots = self.roll_loot()
+    
         item_price = self.get_item_price()
-        open_cost = self.bedrock_cost
-
 
         total_value = 0
-        max_cost = 0
+        loop_amount = 10000
+        for i in range (1,loop_amount):
+            rolled_loots = self.roll_loot()
+            open_cost = self.bedrock_cost
 
 
-        for loot in rolled_loots:
-            price = item_price.get(loot,0)
-            cost = open_cost.get(loot,0)
+            chest_value = 0
+            max_cost = 0
 
 
-            total_value += price
-            if cost >= max_cost:
-                max_cost = cost
-       
-        profit = total_value - max_cost
-        print(rolled_loots)
-        print(total_value)
-        print(f"Profit:{profit} coins")
+            for loot in rolled_loots:
+                price = item_price.get(loot,0)
+                cost = open_cost.get(loot,0)
+
+
+                chest_value += price
+                if cost >= max_cost:
+                    max_cost = cost
+
+            profit = chest_value - max_cost
+            print(rolled_loots)
+            print(chest_value)
+            print(f"Profit:{profit:2f} coins")
+            
+            total_value += profit
+        
+        print(f"平均chest profit :{total_value/loop_amount:2f} coins")
 
 if __name__ == "__main__":
     f = f7()
