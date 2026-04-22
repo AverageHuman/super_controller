@@ -427,8 +427,8 @@ class f7:
         
         print(f"base_quality : {loot_quality[0]}")
         print(f"base_weight  : {loot_weight[0]}")
-        
-        # print (sum(loot_weight[1:]))
+    
+        print (sum(loot_weight[1:]))
         rolled_loots = []
         obtained_items = []
 
