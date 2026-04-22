@@ -462,10 +462,10 @@ class f7:
                     print(f"loot_weight   : {loot_weight[attempts]}!")
                     
                     print(f"\n===========================================\n"
-                            +f"{loot_list[attempts]} got rolled! GG!\n"
-                            +f"{loot_list[attempts]}'s quality : {loot_quality[attempts]}\n"
-                            +"===========================================\n"
-                        )
+                          +f"{loot_list[attempts]} got rolled! GG!\n"
+                          +f"{loot_list[attempts]}'s quality : {loot_quality[attempts]}\n"
+                          +"===========================================\n"
+                      )
                     
                     remaining_quality = remaining_quality - loot_quality[attempts]
                     print(f"Current remaining_quality:{remaining_quality} \n")
@@ -475,9 +475,9 @@ class f7:
     
                 else:
                     print(attempts)
-                    # print(f"==============================================\n'{loot_list[attempts]}' didn't get rolled!")
+                    print(f"==============================================\n'{loot_list[attempts]}' didn't get rolled!")
                     remaining_weight = remaining_weight - loot_weight[attempts]
-                    # print (f"remaining_weight {remaining_weight}\n==============================================\n")
+                    print (f"remaining_weight {remaining_weight}\n==============================================\n")
                     attempts = attempts + 1
     
         total_quality = 0
