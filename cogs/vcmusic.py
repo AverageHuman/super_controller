@@ -10,17 +10,17 @@ class Purifier(commands.Cog):
     @app_commands.command(name = "stopmusic", description = "煩わしい音楽、これでstop。")
     async def stopmusic(self, interaction:discord.Integration):
         await interaction.response.defer()
-        
+
         if interaction.user.voice is None:
             await interaction.response.send("お前VCにいないだろ！")
             await voice_client.disconnect()
-            return 
-        
+            return
+
         voice_client = interaction.guild.voice_client
         if voice_client is None:
             await interaction.followup.send("音楽、流れてないです...")
             return
-        
+
         if voice_client.is_playing() or voice_client.is_paused():
             voice_client.stop
             await voice_client.disconnect()
@@ -43,7 +43,7 @@ class Purifier(commands.Cog):
             source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(r"audio file\空気清浄機(動画).mp4"),volume=3.00)
             voice_client.play(source)
             while voice_client.is_playing():
-                await asyncio.sleep(1)            
+                await asyncio.sleep(1)
             await voice_client.disconnect()
 
 
@@ -57,12 +57,12 @@ class Purifier(commands.Cog):
             voice_channel = interaction.user.voice.channel
             voice_client = await voice_channel.connect(self_deaf = True)
             source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(r"audio file\尊師マーチ.mp4"))
-            
+
             voice_client.play(source)
             while voice_client.is_playing():
                 await asyncio.sleep(1)
             await voice_client.disconnect()
- 
+
     @app_commands.command(name= "daisakuremix", description= "アレが流れます！")
     async def daisaku(self,interaction:discord.Interaction):
         if interaction.user.voice is None:
@@ -77,9 +77,9 @@ class Purifier(commands.Cog):
             source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(r"audio file/威風堂々の歌 remix.mp4"),volume=0.15)
             voice_client.play(source)
             while voice_client.is_playing():
-                await asyncio.sleep(1)            
-            await voice_client.disconnect() 
-    
+                await asyncio.sleep(1)
+            await voice_client.disconnect()
+
     @app_commands.command(name= "yajusen", description= "2025年、「あの」一世を風靡したAI楽曲が流れます！")
     async def yajusen(self,interaction:discord.Interaction):
         if interaction.user.voice is None:
@@ -93,7 +93,7 @@ class Purifier(commands.Cog):
             source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(r"audio file\YAJU.mp4"))
             voice_client.play(source)
             while voice_client.is_playing():
-                await asyncio.sleep(1)            
+                await asyncio.sleep(1)
             await voice_client.disconnect()
 
 
