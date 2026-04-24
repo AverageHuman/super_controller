@@ -4,7 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import asyncio
 from loadcog import loadcog
-from playsound3 import playsound
+from utils.safe_playsound import safe_playsound as playsound, PlaysoundException
 
 
 load_dotenv() 
@@ -26,9 +26,9 @@ async def on_ready():
         bot.tree.copy_global_to(guild=guild)
         await bot.tree.sync(guild=guild)
     print("コマンドを同期しました！")
-    
+
     playsound(r"audio file\load complete.mp3",block=False)
-    
+
 async def setup_hook():
     await loadcog(bot)
 
