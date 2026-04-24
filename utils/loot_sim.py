@@ -15,6 +15,7 @@ class f7:
             "ENCHANTMENT_FEATHER_FALLING_6": 35,
             "ENCHANTMENT_REJUVENATE_1": 30,
             "ESSENCE_WITHER": 1,
+            "ESSENCE_UNDEAD": 1
         }
         self.wood_cost = {
             "ENCHANTMENT_ULTIMATE_BANK_1": 0,
@@ -22,7 +23,7 @@ class f7:
             "ENCHANTMENT_INFINITE_QUIVER_6": 0,
             "ENCHANTMENT_FEATHER_FALLING_6": 0,
             "ENCHANTMENT_REJUVENATE_1": 0,
-            "ESSENCE_WITHER": 0,
+            "ESSENCE_WITHER": 0
         }
         self.wood_quality = {
             "BASE": 125,
@@ -32,6 +33,8 @@ class f7:
             "ENCHANTMENT_FEATHER_FALLING_6": 80,
             "ENCHANTMENT_REJUVENATE_1": 80,
             "ESSENCE_WITHER": 10,
+            "ESSENCE_UNDEAD": 1
+            
         }
 
         # Gold chest
