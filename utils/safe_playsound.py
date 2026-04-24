@@ -1,6 +1,5 @@
-from playsound3 import playsound, PlaysoundException
-
 def safe_playsound(file_path: str, block: bool = False, print_error: bool = True):
+    from playsound3 import playsound, PlaysoundException
     try:
         playsound(file_path, block=block)
     except PlaysoundException as e:

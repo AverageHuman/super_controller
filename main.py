@@ -4,7 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import asyncio
 from loadcog import loadcog
-from utils.safe_playsound import safe_playsound as playsound, PlaysoundException
+from utils.safe_playsound import safe_playsound as playsound
 
 
 load_dotenv() 
