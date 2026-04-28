@@ -1,8 +1,8 @@
 import os
 import discord
+from datetime import datetime
 from discord.ext import commands
 from dotenv import load_dotenv
-import asyncio
 from loadcog import loadcog
 from playsound3 import playsound
 
@@ -21,19 +21,23 @@ GUILD_IDS = [
 @bot.event
 async def on_ready():
     print(f'{bot.user}がdiscordにjoin')
+    
+    time = datetime.now().replace(microsecond=0)
+    channel = bot.get_channel(1498753121025790105)
+    await channel.send(f"bot起動完了！{time}")
+
     for gid in GUILD_IDS:
         guild = discord.Object(id=gid)
         bot.tree.copy_global_to(guild=guild)
         await bot.tree.sync(guild=guild)
     print("コマンドを同期しました！")
-    
     playsound(r"audio file\load complete.mp3",block=False)
     
 async def setup_hook():
     await loadcog(bot)
 
 
-playsound(r"audio file\Dial Up.mp3",block=False) # Line 19 は vibe code
+playsound(r"audio file\Dial Up.mp3",block=False)
 bot.setup_hook = setup_hook
 token = os.getenv("bot_token")
 bot.run(token)
