@@ -417,6 +417,40 @@ class f7:
             "ESSENCE_WITHER",
             "ESSENCE_UNDEAD"
         }
+
+        self.chest_tables = {
+            "wood": {
+                "weight": self.wood_weight,
+                "quality": self.wood_quality,
+                "cost": self.wood_cost,
+            },
+            "gold": {
+                "weight": self.gold_weight,
+                "quality": self.gold_quality,
+                "cost": self.gold_cost,
+            },
+            "diamond": {
+                "weight": self.diamond_weight,
+                "quality": self.diamond_quality,
+                "cost": self.diamond_cost,
+            },
+            "emerald": {
+                "weight": self.emerald_weight,
+                "quality": self.emerald_quality,
+                "cost": self.emerald_cost,
+            },
+            "obsidian": {
+                "weight": self.obsidian_weight,
+                "quality": self.obsidian_quality,
+                "cost": self.obsidian_cost,
+            },
+            "bedrock": {
+                "weight": self.bedrock_weight,
+                "quality": self.bedrock_quality,
+                "cost": self.bedrock_cost,
+            }
+        }
+
 # ========= end of Loot Table Data definition ============#
 
 # ========= loot roll logic ==========
