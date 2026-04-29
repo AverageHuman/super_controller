@@ -4,7 +4,7 @@ from sb_item_price import fetch_item_price
 class f7:
     def __init__(self):
 
-# ========= Loot Table Data definition ============#
+# ========= Loot Table Data definition ============
 
         # Wood chest
         self.wood_weight = {
@@ -451,45 +451,80 @@ class f7:
             }
         }
 
-# ========= end of Loot Table Data definition ============#
+# ========= end of Loot Table Data definition ============
 
+    def chest_converter(self, chest_type: str):
+        tables = self.chest_tables.get(chest_type)
+
+        if tables is None:
+            print("An Error occurred:Unknown chest type")
+            return None
+        
+        return tables["weight"],tables["quality"],tables["cost"]
 # ========= loot roll logic ==========
-    def roll_loot(self):
-        
-        remaining_weight = self.bedrock_weight["BASE"]
-        remaining_quality = self.bedrock_quality["BASE"] #(f7 bedrockなら389になるはず)
-        loot_list = list(self.bedrock_weight.keys())
-        loot_quality = list(self.bedrock_quality.values())
-        loot_weight = list(self.bedrock_weight.values())
-        
+    def roll_loot(self,weight,quality):
+        chest_weight = weight
+        chest_quality = quality
+
+        # ぱっと見まどろっこしいけど、後でこのweightとqualityをいじるのでchestのweightとqualityを入れておかないといけない
+        remaining_weight = chest_weight["BASE"]
+        remaining_quality = chest_quality["BASE"]
+
+        loot_list = list(chest_weight.keys())
+        loot_quality = list(chest_quality.values())
+        loot_weight = list(chest_weight.values())
+
         print(f"base_quality : {loot_quality[0]}")
         print(f"base_weight  : {loot_weight[0]}")
-    
         print (sum(loot_weight[1:]))
+
         rolled_loots = []
         obtained_items = []
-
         while remaining_quality > 0:
+
             roll_flag = False
-            
+            # loot_listを見るとわかるが、listの(0)にはchestのbase_weightが記載されているため、0ではなく1から始めなければならない
             attempts = 1
-            remaining_weight = self.bedrock_weight["BASE"]
-            
-            
+            remaining_weight = loot_weight[0]
+            print(remaining_weight)
+            # このコードベースでは、抽選の方法として規定値(weight)よりランダムで選ばれた数字が小さければ当選として扱う
+            # lootが当選するとroll_flagがTrueになって残りのweight分に入るようなアイテムを探しに行く
             while roll_flag is False:
+                
                 rolled_number = random.randint(0,remaining_weight)
-            
+                # その試行で抽選されたアイテム、番号の可視化　デバッグ用なので完成したら消して問題ない
                 print(f"rolled_number : {rolled_number}")
                 print(f"loot_weight   : {loot_weight[attempts]} \n")
 
+                # remaining_weight は「まだ候補として残っているアイテムの重みの合計」を表す。
+                # 1回の抽選ごとに 0〜remaining_weight の範囲で乱数を振り、
+                # 各アイテムの重みを順番に引いていくことで、
+                # 「重みが大きいアイテムほど当たりやすい」ようにしている。
+                #
+                # 具体的には：  
+                #   1. 最初に total_weight（ここでは BASE）を remaining_weight に入れておく。
+                #   2. 乱数 rolled_number を 0〜remaining_weight で1回だけ生成する。
+                #   3. アイテムを先頭から見ていき、外れたアイテムの重みを remaining_weight から引く。
+                #      → これは「このアイテムの分の範囲はもう使い切った」という意味。
+                #   4. こうして「残りの重み」だけを対象にしながら次のアイテムを判定することで、
+                #      結果として重みに比例した確率でどれか1つが当たる。
+                #
+                # もし remaining_weight を減らさないと、
+                # 「もう通り過ぎたアイテムの重み」を何度も混ぜて計算してしまい、
+                # 実際の重みと違う確率になってしまう。
+
+                # attempts は「現在の候補アイテムの位置」。
+                # このアイテムを見終わったら、次の候補を調べるために attempts を 1 増やす。
+                # これをしないと、同じアイテムだけを延々と判定することになってしまう。
+                # (i hope it's not just an AI slop)
                 if loot_list[attempts] not in self.duplicatable and loot_list[attempts] in obtained_items:
-                    remaining_weight -= loot_weight[attempts]
+                    remaining_weight =  remaining_weight - loot_weight[attempts]
                     attempts += 1
-                    continue
+                    continue 
 
                 # rollされた番号がattmpts番目のloot_weightより小さいかつremaining_qualityよりloot_qualityが小さいなら当選
                 if rolled_number <= loot_weight[attempts] and loot_quality[attempts] <= remaining_quality:
-                    
+        
                     item_name = loot_list[attempts]
 
                     if item_name not in self.duplicatable:
@@ -497,43 +532,49 @@ class f7:
 
                     print(f"rolled_number : {rolled_number}!")
                     print(f"loot_weight   : {loot_weight[attempts]}!")
-                    
+              
+
                     print(f"\n===========================================\n"
                           +f"{loot_list[attempts]} got rolled! GG!\n"
                           +f"{loot_list[attempts]}'s quality : {loot_quality[attempts]}\n"
                           +"===========================================\n"
                       )
-                    
+
                     remaining_quality = remaining_quality - loot_quality[attempts]
                     print(f"Current remaining_quality:{remaining_quality} \n")
-    
+              
+
                     roll_flag = True
                     rolled_loots.append(loot_list[attempts])
-    
+              
+                # 抽選されたitemがrollされなかったら、残りのweightから今回抽選されたアイテムのweightを引く
+                # こうすれば同じアイテムをrollし続けることがなくなる
                 else:
                     print(attempts)
                     print(f"==============================================\n'{loot_list[attempts]}' didn't get rolled!")
                     remaining_weight = remaining_weight - loot_weight[attempts]
-                    print (f"remaining_weight {remaining_weight}\n==============================================\n")
+                    print (f"remaining_weight:{remaining_weight}\n==============================================\n")
                     attempts = attempts + 1
-    
+
+
         total_quality = 0
         print(f"{rolled_loots}\n")
         print("==============================================")
+
         for rolled_loot in rolled_loots:
-            print(f"{rolled_loot}(Quality:{self.bedrock_quality[rolled_loot]})")
-            total_quality = total_quality + self.bedrock_quality[rolled_loot]
-    
+            print(f"{rolled_loot}(Quality:{chest_quality[rolled_loot]})")
+            total_quality = total_quality + chest_quality[rolled_loot]
+
         quality_diff = total_quality - loot_quality[0]
         print (f"\ntotal_quality:{total_quality}\nBase_quality :{loot_quality[0]}\nquality_diff:{quality_diff}")
-        print("==============================================")
-        
+        print("==============================================") 
+
         return rolled_loots
+    
 # ========== End of loot roll logic ==========    
 
 # ========== pricing logic ==========
     def get_item_price(self):
-        
         item_price = fetch_item_price()
         return item_price
 # ========== end of pricing logic ==========
@@ -575,4 +616,6 @@ class f7:
 
 if __name__ == "__main__":
     f = f7()
-    f.calculate_chest_profit()
+    chest_type = "emerald"
+    weight, quality, cost = f.chest_converter(chest_type)
+    f.roll_loot(weight, quality)
