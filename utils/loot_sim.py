@@ -619,4 +619,7 @@ if __name__ == "__main__":
     f = f7()
     chest_type = "emerald"
     weight, quality, cost = f.chest_converter(chest_type)
-    f.roll_loot(weight, quality)
+    item_price = f.get_item_price()
+    loot = f.roll_loot(weight, quality)
+
+    f.calculate_chest_profit(item_price, cost, loot)
