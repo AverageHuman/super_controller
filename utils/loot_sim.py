@@ -580,40 +580,40 @@ class f7:
         return item_price
 # ========== end of pricing logic ==========
 
+    def calculate_chest_profit(self,item_price,loot_cost,loots):
+        # 参照するitemの値段のdict
+        all_item_price = item_price
+        # 参照するchestの開封コストのdict
+        item_open_cost = loot_cost
+        # roll_loot関数で抽選されたlootのリスト
+        rolled_loots = loots
 
-# ========== Calculate chest value logic ==========
-    def calculate_chest_profit(self):
-    
-        item_price = self.get_item_price()
-
-        total_value = 0
-        loop_amount = 10000
-        for i in range (1,loop_amount):
-            rolled_loots = self.roll_loot()
-            open_cost = self.bedrock_cost
-
-
-            chest_value = 0
-            max_cost = 0
-
-
-            for loot in rolled_loots:
-                price = item_price.get(loot,0)
-                cost = open_cost.get(loot,0)
-
-
-                chest_value += price
-                if cost >= max_cost:
-                    max_cost = cost
-
-            profit = chest_value - max_cost
-            print(rolled_loots)
-            print(chest_value)
-            print(f"Profit:{profit:2f} coins")
-            
-            total_value += profit
+        print(f"item_price:{all_item_price}")
+        print(f"open_cost:{item_open_cost}")
+        print(f"rolled_loots:{rolled_loots}")
         
-        print(f"平均chest profit :{total_value/loop_amount:2f} coins")
+        total_value = 0
+        chest_value = 0
+        max_cost = 0
+
+        for loot in rolled_loots:
+            price = all_item_price.get(loot,0)
+            cost = item_open_cost.get(loot,0)
+
+            chest_value += price
+            if cost>=max_cost:
+                max_cost = cost
+        
+        profit = chest_value - max_cost
+
+        print(rolled_loots)
+        print(chest_value)
+        print(f"OpenCost:{max_cost}")
+        print(f"Profit:{profit:2f} coins")
+
+        return profit
+# ========== Calculate chest value logic ==========
+
 
 if __name__ == "__main__":
     f = f7()
