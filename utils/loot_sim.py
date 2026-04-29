@@ -474,9 +474,9 @@ class f7:
         loot_quality = list(chest_quality.values())
         loot_weight = list(chest_weight.values())
 
-        print(f"base_quality : {loot_quality[0]}")
-        print(f"base_weight  : {loot_weight[0]}")
-        print (sum(loot_weight[1:]))
+        # print(f"base_quality : {loot_quality[0]}")
+        # print(f"base_weight  : {loot_weight[0]}")
+        # print (sum(loot_weight[1:]))
 
         rolled_loots = []
         obtained_items = []
@@ -486,15 +486,16 @@ class f7:
             # loot_listを見るとわかるが、listの(0)にはchestのbase_weightが記載されているため、0ではなく1から始めなければならない
             attempts = 1
             remaining_weight = loot_weight[0]
-            print(remaining_weight)
+            # print(remaining_weight)
+
             # このコードベースでは、抽選の方法として規定値(weight)よりランダムで選ばれた数字が小さければ当選として扱う
             # lootが当選するとroll_flagがTrueになって残りのweight分に入るようなアイテムを探しに行く
             while roll_flag is False:
                 
                 rolled_number = random.randint(0,remaining_weight)
                 # その試行で抽選されたアイテム、番号の可視化　デバッグ用なので完成したら消して問題ない
-                print(f"rolled_number : {rolled_number}")
-                print(f"loot_weight   : {loot_weight[attempts]} \n")
+                # print(f"rolled_number : {rolled_number}")
+                # print(f"loot_weight   : {loot_weight[attempts]} \n")
 
                 # remaining_weight は「まだ候補として残っているアイテムの重みの合計」を表す。
                 # 1回の抽選ごとに 0〜remaining_weight の範囲で乱数を振り、
@@ -530,18 +531,18 @@ class f7:
                     if item_name not in self.duplicatable:
                         obtained_items.append(loot_list[attempts])
 
-                    print(f"rolled_number : {rolled_number}!")
-                    print(f"loot_weight   : {loot_weight[attempts]}!")
+                    # print(f"rolled_number : {rolled_number}!")
+                    # print(f"loot_weight   : {loot_weight[attempts]}!")
               
 
-                    print(f"\n===========================================\n"
-                          +f"{loot_list[attempts]} got rolled! GG!\n"
-                          +f"{loot_list[attempts]}'s quality : {loot_quality[attempts]}\n"
-                          +"===========================================\n"
-                      )
+                    # print(f"\n===========================================\n"
+                    #       +f"{loot_list[attempts]} got rolled! GG!\n"
+                    #       +f"{loot_list[attempts]}'s quality : {loot_quality[attempts]}\n"
+                    #       +"===========================================\n"
+                    #   )
 
                     remaining_quality = remaining_quality - loot_quality[attempts]
-                    print(f"Current remaining_quality:{remaining_quality} \n")
+                    # print(f"Current remaining_quality:{remaining_quality} \n")
               
 
                     roll_flag = True
@@ -550,10 +551,10 @@ class f7:
                 # 抽選されたitemがrollされなかったら、残りのweightから今回抽選されたアイテムのweightを引く
                 # こうすれば同じアイテムをrollし続けることがなくなる
                 else:
-                    print(attempts)
-                    print(f"==============================================\n'{loot_list[attempts]}' didn't get rolled!")
+                    # print(attempts)
+                    # print(f"==============================================\n'{loot_list[attempts]}' didn't get rolled!")
                     remaining_weight = remaining_weight - loot_weight[attempts]
-                    print (f"remaining_weight:{remaining_weight}\n==============================================\n")
+                    # print (f"remaining_weight:{remaining_weight}\n==============================================\n")
                     attempts = attempts + 1
 
 
