@@ -70,7 +70,7 @@ class Purifier(commands.Cog):
             await interaction.followup.send("お前VCにいないだろ！")
         else:
             await interaction.response.defer()
-            await interaction.followup.send("(Are！ you！ ready～～～!!!!!!!!!!😎  💥 )濁悪の此の世行く　学会の🪭 ✋ 🫸(LET'S GO!!!!)行く 👊手を👊阻むは😏何奴なるぞ 🪭 🫲🫱 威🫸風🫷堂々と✋信行たてて 🪭✋進む🙌我ら🙌の(CHASE YOU~~~~!!!)確信💥ここに💥(ア～モ〜!!!!💥)（爆発）（点滅）")
+            await interaction.followup.send("威 風 堂 々 で ぇ ° ！？\n🙄(Are！ you！ ready～～～!!!!!!!!!!😎  💥 )濁悪の此の世行く　学会の🪭 ✋ 🫸(LET'S GO!!!!)行く 👊手を👊阻むは😏何奴なるぞ 🪭 🫲🫱 威🫸風🫷堂々と✋信行たてて 🪭✋進む🙌我ら🙌の(CHASE YOU~~~~!!!)確信💥ここに💥(ア～モ〜!!!!💥)（爆発）（点滅）")
 
             voice_channel = interaction.user.voice.channel
             voice_client = await voice_channel.connect(self_deaf=True)
