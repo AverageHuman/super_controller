@@ -559,16 +559,16 @@ class f7:
 
 
         total_quality = 0
-        print(f"{rolled_loots}\n")
-        print("==============================================")
+#        print(f"{rolled_loots}\n")
+#        print("==============================================")
 
         for rolled_loot in rolled_loots:
-            print(f"{rolled_loot}(Quality:{chest_quality[rolled_loot]})")
+#            print(f"{rolled_loot}(Quality:{chest_quality[rolled_loot]})")
             total_quality = total_quality + chest_quality[rolled_loot]
 
         quality_diff = total_quality - loot_quality[0]
-        print (f"\ntotal_quality:{total_quality}\nBase_quality :{loot_quality[0]}\nquality_diff:{quality_diff}")
-        print("==============================================") 
+#        print (f"\ntotal_quality:{total_quality}\nBase_quality :{loot_quality[0]}\nquality_diff:{quality_diff}")
+#        print("==============================================") 
 
         return rolled_loots
     
@@ -588,9 +588,9 @@ class f7:
         # roll_loot関数で抽選されたlootのリスト
         rolled_loots = loots
 
-        print(f"item_price:{all_item_price}")
-        print(f"open_cost:{item_open_cost}")
-        print(f"rolled_loots:{rolled_loots}")
+#        print(f"item_price:{all_item_price}")
+#        print(f"open_cost:{item_open_cost}")
+#        print(f"rolled_loots:{rolled_loots}")
         
         total_value = 0
         chest_value = 0
@@ -606,10 +606,10 @@ class f7:
         
         profit = chest_value - max_cost
 
-        print(rolled_loots)
-        print(chest_value)
-        print(f"OpenCost:{max_cost}")
-        print(f"Profit:{profit:.0f} coins")
+#        print(rolled_loots)
+#        print(chest_value)
+#        print(f"OpenCost:{max_cost}")
+#        print(f"Profit:{profit:.0f} coins")
 
         return profit
 # ========== Calculate chest value logic ==========
@@ -618,7 +618,7 @@ class f7:
     def compare_profit(self,chest_type,profit_dictionary):
         max_profit = 0
         second_profit = 0
-        chest_dict = {"best_chest": "","1st_chest_profit":"","second_chest":"","second_chest_profit":""}
+        chest_dict = {"first_chest": "","first_chest_profit":"","second_chest":"","second_chest_profit":""}
 
         # 最初にbest_chestを決めて、次にsecond_chestを決めるロジック
         # ほんとはもっといい方法があるんだろうけど、後で自分がメンテナンスしやすいのが圧倒的にこの実行時間のかかりそうなロジックなので
@@ -632,8 +632,8 @@ class f7:
             if max_profit < chest_profit:
 
                 max_profit = chest_profit
-                chest_dict["best_chest"] = chest
-                chest_dict["1st_chest_profit"] = max_profit
+                chest_dict["first_chest"] = chest
+                chest_dict["first_chest_profit"] = max_profit
 
         for chest in chest_type:
             chest_profit = (profit_dictionary.get(chest,"unknown"))
@@ -652,8 +652,13 @@ if __name__ == "__main__":
     f = f7()
     chest_type = ["wood","gold","diamond","emerald","obsidian","bedrock"]
     item_price = f.get_item_price()
-    for i in chest_type:
-        weight, quality, cost = f.chest_converter(i)
-        loot = f.roll_loot(weight, quality)
+    profit_dictionary = {}  
+    for i in range (0,10):
+        for chest in chest_type:
+            chest_weight, chest_quality, open_cost = f.chest_converter(chest)
+            loot = f.roll_loot(chest_weight, chest_quality)
+            chest_profit = f.calculate_chest_profit(item_price, open_cost, loot)
+            profit_dictionary[chest] = chest_profit
 
-        f.calculate_chest_profit(item_price, cost, loot)
+        print(f.compare_profit(chest_type,profit_dictionary))
+        print("")
