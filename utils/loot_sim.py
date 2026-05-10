@@ -609,7 +609,7 @@ class f7:
         print(rolled_loots)
         print(chest_value)
         print(f"OpenCost:{max_cost}")
-        print(f"Profit:{profit:2f} coins")
+        print(f"Profit:{profit:.0f} coins")
 
         return profit
 # ========== Calculate chest value logic ==========
@@ -617,9 +617,10 @@ class f7:
 
 if __name__ == "__main__":
     f = f7()
-    chest_type = "emerald"
-    weight, quality, cost = f.chest_converter(chest_type)
+    chest_type = ["wood","gold","diamond","emerald","obsidian","bedrock"]
     item_price = f.get_item_price()
-    loot = f.roll_loot(weight, quality)
+    for i in chest_type:
+        weight, quality, cost = f.chest_converter(i)
+        loot = f.roll_loot(weight, quality)
 
-    f.calculate_chest_profit(item_price, cost, loot)
+        f.calculate_chest_profit(item_price, cost, loot)
