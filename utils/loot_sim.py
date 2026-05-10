@@ -617,14 +617,32 @@ class f7:
 # ========== Comparing chest profit logic ==========
     def compare_profit(self,chest_type,profit_dictionary):
         max_profit = 0
-        chest_dict = {}
+        second_profit = 0
+        chest_dict = {"best_chest": "","1st_chest_profit":"","second_chest":"","second_chest_profit":""}
+
+        # 最初にbest_chestを決めて、次にsecond_chestを決めるロジック
+        # ほんとはもっといい方法があるんだろうけど、後で自分がメンテナンスしやすいのが圧倒的にこの実行時間のかかりそうなロジックなので
+        # このままにする
+
+
         for chest in chest_type:
             chest_profit = (profit_dictionary.get(chest,"unknown"))
-            if max_profit <= chest_profit:
+            print(f"{chest}'s chest_profit:{chest_profit}")
+
+            if max_profit < chest_profit:
 
                 max_profit = chest_profit
                 chest_dict["best_chest"] = chest
                 chest_dict["1st_chest_profit"] = max_profit
+
+        for chest in chest_type:
+            chest_profit = (profit_dictionary.get(chest,"unknown"))
+            
+            if second_profit < chest_profit and chest_profit < max_profit:
+                
+                second_profit = chest_profit
+                chest_dict["second_chest"] = chest
+                chest_dict["second_chest_profit"] = second_profit
 
         return chest_dict
 
