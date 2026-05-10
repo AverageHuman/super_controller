@@ -614,6 +614,21 @@ class f7:
         return profit
 # ========== Calculate chest value logic ==========
 
+# ========== Comparing chest profit logic ==========
+    def compare_profit(self,chest_type,profit_dictionary):
+        max_profit = 0
+        chest_dict = {}
+        for chest in chest_type:
+            chest_profit = (profit_dictionary.get(chest,"unknown"))
+            if max_profit <= chest_profit:
+
+                max_profit = chest_profit
+                chest_dict["best_chest"] = chest
+                chest_dict["1st_chest_profit"] = max_profit
+
+        return chest_dict
+
+# ========== End of comparing chest value logic ==========
 
 if __name__ == "__main__":
     f = f7()
