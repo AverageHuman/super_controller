@@ -453,6 +453,8 @@ class f7:
 
 # ========= end of Loot Table Data definition ============
 
+
+# ========= chest converting logic ==========
     def chest_converter(self, chest_type: str):
         tables = self.chest_tables.get(chest_type)
 
@@ -461,7 +463,10 @@ class f7:
             return None
         
         return tables["weight"],tables["quality"],tables["cost"]
-# ========= loot roll logic ==========
+# ========== end of chest converting logic ==========
+
+
+# ========= roll loot logic ==========
     def roll_loot(self,weight,quality):
         chest_weight = weight
         chest_quality = quality
@@ -574,12 +579,13 @@ class f7:
     
 # ========== End of loot roll logic ==========    
 
-# ========== pricing logic ==========
+# ========== fetching item price logic ==========
     def get_item_price(self):
         item_price = fetch_item_price()
         return item_price
-# ========== end of pricing logic ==========
+# ========== end of fetching item price logic ==========
 
+# ========== calculation chest profit logic ==========
     def calculate_chest_profit(self,item_price,loot_cost,loots):
         # 参照するitemの値段のdict
         all_item_price = item_price
@@ -612,7 +618,7 @@ class f7:
 #        print(f"Profit:{profit:.0f} coins")
 
         return profit
-# ========== Calculate chest value logic ==========
+# ========== End of Calculate chest value logic ==========
 
 # ========== Comparing chest profit logic ==========
     def compare_profit(self,chest_type,profit_dictionary):
