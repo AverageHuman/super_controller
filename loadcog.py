@@ -1,11 +1,10 @@
 import os
+import asyncio
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
 import requests
-import asyncio
 from playsound3 import playsound
-
+from dotenv import load_dotenv
 
 async def loadcog(bot):
     for filename in os.listdir("./cogs"):
