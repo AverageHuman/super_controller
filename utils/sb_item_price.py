@@ -1,5 +1,5 @@
-import requests 
 import time
+import requests 
 
 class getitemprice:
     def __init__ (self):
