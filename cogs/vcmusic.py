@@ -40,7 +40,7 @@ class Purifier(commands.Cog):
             await interaction.followup.send("VCの空気を綺麗にします...")
             voice_channel = interaction.user.voice.channel
             voice_client = await voice_channel.connect(self_deaf=True)
-            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("audio file\空気清浄機(動画).mp4"),volume=3.00))
+            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("空気清浄機(動画).mp4"),volume=3.00))
             voice_client.play(source)
             while voice_client.is_playing():
                 await asyncio.sleep(1)            
@@ -56,7 +56,7 @@ class Purifier(commands.Cog):
             await interaction.followup.send("お前、ガチでやるのかよ...")
             voice_channel = interaction.user.voice.channel
             voice_client = await voice_channel.connect(self_deaf = True)
-            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("audio file\尊師マーチ.mp4")))
+            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("尊師マーチ.mp4")))
             
             voice_client.play(source)
             while voice_client.is_playing():
@@ -74,7 +74,7 @@ class Purifier(commands.Cog):
 
             voice_channel = interaction.user.voice.channel
             voice_client = await voice_channel.connect(self_deaf=True)
-            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("audio file/威風堂々の歌 remix.mp4"),volume=0.15))
+            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("威風堂々の歌 remix.mp4"),volume=0.15))
             voice_client.play(source)
             while voice_client.is_playing():
                 await asyncio.sleep(1)            
