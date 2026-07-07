@@ -74,7 +74,7 @@ class Purifier(commands.Cog):
 
             voice_channel = interaction.user.voice.channel
             voice_client = await voice_channel.connect(self_deaf=True)
-            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("威風堂々の歌 remix.mp4")),volume=0.15)
+            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_path("威風堂々の歌 remix.mp3")),volume=0.15)
             voice_client.play(source)
             while voice_client.is_playing():
                 await asyncio.sleep(1)            

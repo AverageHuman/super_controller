@@ -4,7 +4,6 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import requests
 import asyncio
-from playsound3 import playsound
 
 
 async def loadcog(bot):
