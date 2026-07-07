@@ -10,7 +10,7 @@ class reload(commands.Cog):
 
     @app_commands.command(name="reload", description="cogをリロードします")
     async def ping(self, interaction: discord.Interaction):
-        if interaction.user.id in (548845566977769473 or 1106952088572923904):
+        if interaction.user.id in (548845566977769473, 1106952088572923904):
             await reloadcog(self.bot)
             await interaction.response.send_message("cogリロード完了！")
         else:
