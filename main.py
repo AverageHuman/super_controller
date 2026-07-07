@@ -4,7 +4,6 @@ from datetime import datetime
 from discord.ext import commands
 from dotenv import load_dotenv
 from loadcog import loadcog
-from playsound3 import playsound
 
 
 load_dotenv() 
@@ -31,13 +30,11 @@ async def on_ready():
         bot.tree.copy_global_to(guild=guild)
         await bot.tree.sync(guild=guild)
     print("コマンドを同期しました！")
-    playsound(r"audio file\load complete.mp3",block=False)
     
 async def setup_hook():
     await loadcog(bot)
 
 
-playsound(r"audio file\Dial Up.mp3",block=False)
 bot.setup_hook = setup_hook
 token = os.getenv("bot_token")
 bot.run(token)

@@ -12,7 +12,6 @@ async def loadcog(bot):
             if filename.endswith(".py"):
                 await bot.load_extension(f"cogs.{filename[:-3]}")
                 print(f"{filename} has finished loading!")
-    playsound(r"audio file\load complete.mp3")
     print("reload complete!")
 
 
@@ -21,7 +20,6 @@ async def reloadcog(bot):
             if filename.endswith(".py"):
                 await bot.reload_extension(f"cogs.{filename[:-3]}")
                 print(f"{filename} has finished loading!")
-    playsound(r"audio file\load complete.mp3")
     print("reload complete!")
 
 
